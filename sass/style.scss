@@ -1,0 +1,265 @@
+$gold: #B79956;
+$light-gold: #fffc41;
+$dark-gold: #e09b28;
+
+@mixin gold-text {
+
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -webkit-margin-before: 0.3em; 
+    -webkit-margin-after: 0.2em;
+    background-image: -webkit-linear-gradient(yellow, $dark-gold 70%, yellow );
+    background-size: 100% 1.25em;
+    text-shadow: 0 1px .5px transparentize($dark-gold, .6);
+    color: $dark-gold;
+    
+}
+
+@mixin mobile {
+	@media ( max-width: 768px ) { @content; }
+}
+
+body{
+    margin: 0;
+}
+
+.bong-intl {
+    
+    position: relative;
+    font-family: 'Helvetica';
+    width: 100%;
+    overflow: hidden;
+
+    * {
+        box-sizing: border-box;
+    }
+    
+    a, a:visited{
+        color: inherit;
+    }
+
+    .tower {
+        
+        background: url('assets/sky.jpg');
+        width: 50%;
+        height: 100vh;
+        transform: translate3d(0,0,0);
+        
+        @include mobile {
+            width: 90%;
+        }
+        
+        &_abs-top {
+            position: absolute;
+            top: 0;
+        }
+        
+        &_abs-bottom {
+            position: absolute;
+            bottom: 0;
+        }
+        
+        &_fixed {
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+        
+        &__css-renderer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            
+            & * {
+                pointer-events: none;
+            }
+            
+            // &.cursor-up {
+            //     // cursor: n-resize;
+            //     cursor: url(assets/upstairs.png), auto;
+            // }
+            
+            // &.cursor-down {
+            //     //cursor: s-resize;
+            //     cursor: url(assets/downstairs.png), auto;
+            // }
+            
+        }
+        
+        &__range {
+            position: absolute;
+            height: 90%;
+            top: 5%;
+            width: 30px;
+            z-index: 100;
+            right: -15px;
+            cursor: pointer;
+            
+            @include mobile{
+                display: none;
+            }
+            
+            &:before {
+                content: '';
+                position: absolute;
+                background: $gold;
+                width: 2px;
+                left: 14px;
+                height: 100%;
+            }
+            
+            &-counter {
+                font-size: 14px;
+                position: absolute;
+                width: 30px;
+                height: 30px;
+                border-radius: 30px;
+                background-color: black;
+                color: $gold;
+                text-align: center;
+                border: 2px solid $gold;
+                padding-top: 5px;
+                cursor: row-resize;
+                transform: translateY(-50%);
+            }
+        }
+        
+        &__wall {
+            
+            @include mobile{
+                font-size: .75em;
+            }
+            
+            width: 75%;
+            position: absolute;
+            backface-visibility: hidden;
+            background: black;
+            padding: 1.3em;
+            box-sizing: border-box;
+            
+            p {
+                margin: 0;
+                color: $gold;
+                line-height: 1.3;
+                
+                &:first-of-type {
+                    border-top: 1px solid $gold;
+                    padding-top: 15px;
+                    text-transform: uppercase;
+                }
+            }
+            
+            h1 {
+                font-size: 2rem;
+                
+                @include gold-text;
+                
+                @include mobile {
+                    font-size: 1em;
+                }
+                
+            }
+            
+        }
+        
+        &__cursor {
+            
+            position: absolute;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            width: 50px;
+            height: 50px;
+            z-index: 1000;
+            
+            margin-top: 10px;
+            margin-left: 10px;
+            
+            @include mobile{
+                display: none;
+            }
+            
+            &_up {
+                background-image: url(assets/upstairs.png);
+            }
+            
+            &_down {
+                background-image: url(assets/downstairs.png);
+            }
+            
+        }
+        
+    }
+    
+    .article{
+        
+        background: white;
+        width: 50%;
+        margin-left: 50%;
+        padding: 5em;
+        font-family: "BWHaasText","Helvetica Neue",Helvetica,Arial,sans-serif;
+        font-size: 1.125rem;
+        line-height: 1.75rem;
+
+        @include mobile {
+            width: 90%;
+            margin-left: 0;
+            left: 10%;
+            position: relative;
+            padding: 5em 1em;
+            transition: transform .4s;
+        }
+        
+        h1, h2 {
+            display:none;
+            @include mobile {
+                display: block;
+            }
+            line-height: 1;
+            text-transform: uppercase;
+            @include gold-text;
+            margin: 0;
+        }
+        
+        h1 {
+            font-size: 4rem;
+        }
+        
+        h2{
+            font-size: 1.5rem;
+        }
+        
+        p a {
+            background-color: black;
+            color: $gold;
+            padding: 0 3px;
+            cursor: pointer;
+            transition: color .2s;
+            
+            &:hover {
+                color: $light-gold;
+            }
+        }
+        
+        aside {
+            color: gray;
+            font-size: .75rem;
+            text-transform: uppercase;
+            line-height: 1.5;
+            margin-top: 3rem;
+        }
+        
+    }
+    
+    @include mobile {
+        
+        &__tower-open .article {
+            transform: translateX(80vw);
+        }
+        
+    }
+
+}
